@@ -18,7 +18,7 @@
             $this->email = $new_email;
         }
 
-        function setPassowrd($new_password)
+        function setPassword($new_password)
         {
             $this->password = $new_password;
         }
@@ -47,10 +47,10 @@
         {
             $statement = $GLOBALS['DB']->exec("INSERT INTO user (email, password) VALUES ('$this->getEmail()', $this->getId());");
             $result = $statement->fetch(PDO::FETCH_ASSOC);
-            $this->setId()($result['id']);
+            $this->setId($result['id']);
         }
 
-        function getAll()
+         static function getAll()
         {
             $returned_users = $GLOBALS['DB']->query("SELECT * FROM user");
 
@@ -63,8 +63,12 @@
                 array_push($users, $new_user);
             }
             return $users;
-        }
+        }    
 
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM user *;")
+        }
     }
 
 ?>
